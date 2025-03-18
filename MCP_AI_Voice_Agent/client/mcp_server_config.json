@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "time": {
+      "command": "python",
+      "args": [
+        "-m",
+        "mcp_server_time",
+        "--local-timezone=Asia/Shanghai"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ]
+    },
+    "music_player": {
+      "command": "python",
+      "args": [
+        "/Users/tylerzhao/demp/MCP/server/mplayer/main.py"
+      ]
+    }
+  }
+}
