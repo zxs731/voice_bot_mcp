@@ -18,7 +18,7 @@
     "music_player": {
       "command": "python",
       "args": [
-        "/Users/tylerzhao/demp/MCP/server/mplayer/main.py"
+        "/<Path>/MCP/server/mplayer/main.py"
       ]
     }
   }
