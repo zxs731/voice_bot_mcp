@@ -123,6 +123,7 @@ class MCPClient:
         self.sessions={}
         self.exit_stack = AsyncExitStack()
         self.tools=[]
+        self.messages=[]
 
         self.client = AsyncAzureOpenAI(  
             azure_endpoint=os.environ["URL"],  
@@ -169,12 +170,13 @@ class MCPClient:
 
     async def process_query(self, query: str) -> str:
         """使用 LLM 和 MCP 服务器提供的工具处理查询"""
-        messages = [
+        self.messages=self.messages+[
             {
                 "role": "user",
                 "content": query
             }
         ]
+        messages =self.messages[-20:]
 
         available_tools = [{
             "type": "function",
@@ -241,7 +243,9 @@ class MCPClient:
             if message.content:
                 final_text.append(message.content)
 
-        return "\n".join(final_text)
+        answer="\n".join(final_text)
+        self.messages=self.messages+[{"role": "assistant","content":answer}]
+        return answer
     
     async def getPlayerStatus(self):
         result = await self.sessions["isPlaying"].call_tool("isPlaying", {})
